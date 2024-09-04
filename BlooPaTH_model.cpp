@@ -12,7 +12,7 @@ Environment pkg_truncnorm = Environment::namespace_env("truncnorm");
 Environment pkg_mc2d = Environment::namespace_env("mc2d");
 Environment pkg_stats = Environment::namespace_env("stats");
 
-// Loading all needed function from these packages
+// Loading all needed functions from these packages
 Function random_truncnorm=pkg_truncnorm["rtruncnorm"];
 Function random_pert = pkg_mc2d["rpert"];
 Function random_lnorm= pkg_stats["rlnorm"];
