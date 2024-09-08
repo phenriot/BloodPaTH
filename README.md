@@ -1,7 +1,7 @@
 ## *BloodPaTH* : Bloodborne Pathogen Transmission in Hospitals
 
-After downloading the BlooPaTH package (BlooPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line (you will need the 'tools' package to process):
- > tools::Rcmd("INSTALL BlooPaTH_1.0.tar.gz")
+After downloading the BloodPaTH package (BloodPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line (you will need the 'tools' package to process):
+ > tools::Rcmd("INSTALL BloodPaTH_1.0.tar.gz")
 
 **NB**: This package is in alpha version and is still under development.
 
