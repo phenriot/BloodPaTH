@@ -6,7 +6,7 @@ library(parallel)
 library(graphics)
 library(foreach)
 library(doParallel)
-library(BlooPaTH)
+library(BloodPaTH)
 
 ##############################
 ### Setting up the cluster ###
@@ -80,9 +80,9 @@ at_risk_wards = c(0)
 ### High-resource setting case ###
 ##################################
 
-output_baseline_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_baseline_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model(t=time, 
+  BloodPaTH_model(t=time, 
                  n_patients=n_patients, 
                  nb_wards=28, 
                  nb_adm=2, 
@@ -123,11 +123,11 @@ output_baseline_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%do
 ### Low resource setting case ###
 #################################
 
-output_baseline_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_baseline_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -178,11 +178,11 @@ intervention = "ward-based"
 
 at_risk_wards = c(28,22,13)
 
-output_WB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_WB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -224,11 +224,11 @@ output_WB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
 
 at_risk_wards = c(28,27,22)
 
-output_WB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_WB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -280,9 +280,9 @@ intervention = "patient-based"
 
 at_risk_wards = c(28,27,13)
 
-output_PB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_PB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -326,9 +326,9 @@ output_PB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
 
 at_risk_wards = c(28,27,22)
 
-output_PB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_PB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -387,9 +387,9 @@ at_risk_wards = c(0)
 ### High-resource setting case ###
 ##################################
 
-output_baseline_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_baseline_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model(t=time, 
+  BloodPaTH_model(t=time, 
                  n_patients=n_patients, 
                  nb_wards=28, 
                  nb_adm=2, 
@@ -430,11 +430,11 @@ output_baseline_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%do
 ### Low resource setting case ###
 #################################
 
-output_baseline_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_baseline_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -485,11 +485,11 @@ intervention = "ward-based"
 
 at_risk_wards = c(28,22,13)
 
-output_WB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_WB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -532,11 +532,11 @@ output_WB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
 
 at_risk_wards = c(28,27,22)
 
-output_WB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_WB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -588,9 +588,9 @@ intervention = "patient-based"
 
 at_risk_wards = c(28,27,13)
 
-output_PB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_PB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -634,9 +634,9 @@ output_PB_High = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
 
 at_risk_wards = c(28,27,22)
 
-output_PB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_PB_Low = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model(t=time, #simulation time
+  BloodPaTH_model(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -691,11 +691,11 @@ intervention = "ward-based"
 
 at_risk_wards = c(28,22,13)
 
-output_WB_High_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_WB_High_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model_inter(t=time, #simulation time
+  BloodPaTH_model_inter(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -737,11 +737,11 @@ output_WB_High_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%do
 
 at_risk_wards = c(28,27,22)
 
-output_WB_Low_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_WB_Low_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
   set.seed(n)
   
-  BlooPaTH_model_inter(t=time, #simulation time
+  BloodPaTH_model_inter(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -792,9 +792,9 @@ intervention = "patient-based"
 
 at_risk_wards = c(28,27,13)
 
-output_PB_High_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_PB_High_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model_inter(t=time, #simulation time
+  BloodPaTH_model_inter(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
@@ -838,9 +838,9 @@ output_PB_High_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%do
 
 at_risk_wards = c(28,27,13)
 
-output_PB_Low_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output_PB_Low_inter = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model_inter(t=time, #simulation time
+  BloodPaTH_model_inter(t=time, #simulation time
                  n_patients=n_patients, # number of patients
                  nb_wards=28, # number of wards
                  nb_adm=2, # number of admission routes
