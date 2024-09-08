@@ -1,4 +1,4 @@
-## *BloodPaTH* : Bloodborne Pathogen Transmission in Hospitals
+## *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals
 
 After downloading the BloodPaTH package (BloodPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line (you will need the 'tools' package to process):
  > tools::Rcmd("INSTALL BloodPaTH_1.0.tar.gz")
