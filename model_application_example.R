@@ -2,7 +2,7 @@
 ### Loading packages   ###
 ##########################
 
-library(BlooPaTH)
+library(BloodPaTH)
 library(parallel)
 library(graphics)
 library(foreach)
@@ -176,9 +176,9 @@ min_e_phase_HCV = 576 # Min. duration of the eclipse phase
 max_e_phase_HCV = 4032 # Max. duration of the eclipse phase
 
 # Launching the model
-output = foreach(n = 1:n_sim ,.packages = c("Rcpp","BlooPaTH"))%dopar%{
+output = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  BlooPaTH_model(t=time, #simulation time
+  bloodpath_model(t=time, #simulation time
                  n_patients=nb_patients, # number of patients
                  nb_wards=nb_wards, # number of wards
                  nb_adm=nb_adm_routes, # number of admission routes
