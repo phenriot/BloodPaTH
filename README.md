@@ -11,3 +11,4 @@ You will also have to change the path when loading the data within you R session
 You will find in the "Functions_plot.R" file the functions allowing visualization of the output. 
 
 If you have any question, please reach the author Paul Henriot at the following email adress : paul.henriot@protonmail.com
+![BloodPaTH_logo](https://github.com/user-attachments/assets/bdb3c8cc-8cfd-4c2d-9a83-6f0c3ad1224d)
