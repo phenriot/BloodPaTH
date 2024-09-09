@@ -7,7 +7,7 @@ After downloading the BloodPaTH package (BloodPaTH_1.0.tar.gz) please start by i
 
 **NB**: This package is in alpha version and is still under development. A Shiny app is currently being developped. 
 
-Then, you will find a synthetic application of the model in the "model_application_example.R" file. To run the code you will need to download the "Data example" folder, in which you will find synthetic data.
+Then, you will find an application of the model in the "model_application_example.R" file. To run the code you will need to download the "Data example" folder, in which you will find synthetic data.
 You will also have to change the path when loading the data within you R session. 
 
 You will find in the "Functions_plot.R" file the functions allowing visualization of the output. 
