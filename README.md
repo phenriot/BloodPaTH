@@ -1,4 +1,4 @@
-# *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ![BloodPaTH_logo - Copie](https://github.com/user-attachments/assets/cbd2b607-cd24-4818-9c9e-aa5d7485901d)
+# *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals   &nbsp;&nbsp;&nbsp;  ![BloodPaTH_logo - Copie](https://github.com/user-attachments/assets/cbd2b607-cd24-4818-9c9e-aa5d7485901d)
 
 ## Installation
 
