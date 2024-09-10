@@ -35,4 +35,4 @@ You will find in the *Functions_plot.R* file the functions allowing visualizatio
 *Analyses_PlosCompBiol_paper.R* is the R file summarising all the analyses performed to obtain the results presented in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://www.medrxiv.org/content/10.1101/2023.11.14.23298506v1).
 Unfortunately, it cannot be used in its current form because the data used in this project is considered sensitive and cannot be shared publicly. 
 
-If you have any question, please reach the author <a href="mailto:webmaster@example.com">Paul Henriot</a> [Paul Henriot](paul.henriot@protonmail.com). 
+If you have any question, please reach the author <a href="mailto:paul.henriot@protonmail.com">Paul Henriot</a>
