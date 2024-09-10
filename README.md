@@ -3,16 +3,18 @@
 
 ## Introduction <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> </a>
 
-The *BloodPaTh* package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data.     
+The *BloodPaTh* package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data.
 
 ## Installation 
 
 After downloading the *BloodPaTH* package (BloodPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line (you will need the *tools* package to process):
  > tools::Rcmd("INSTALL BloodPaTH_1.0.tar.gz")
 
-## How does it work ?  
+## How does it work ? 
 
-... Coming soon ...
+The main model was coded in C++.
+
+*... Coming soon ...*
 
 **NB**: This package is in alpha version and is still under development. A Shiny app is currently being developped. 
 
