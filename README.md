@@ -14,7 +14,7 @@ After downloading the *BloodPaTH* package (BloodPaTH_1.0.tar.gz) please start by
 
 The main model was coded in C++.
 
-*... Coming soon ...*
+*... More coming soon ...*
 
 **NB**: This package is in alpha version and is still under development. A Shiny app is currently being developped. 
 
