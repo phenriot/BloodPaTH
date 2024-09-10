@@ -1,9 +1,13 @@
 
 # *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals 
 
-## Installation <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> </a>
+## Introduction <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> </a>
 
-After downloading the BloodPaTH package (BloodPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line (you will need the 'tools' package to process):
+The *BloodPaTh* package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal propspective data.     
+
+## Installation 
+
+After downloading the *BloodPaTH* package (BloodPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line (you will need the *tools* package to process):
  > tools::Rcmd("INSTALL BloodPaTH_1.0.tar.gz")
 
 ## How does it work ?  
