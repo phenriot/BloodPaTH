@@ -165,7 +165,7 @@ prevalence_type = "ward" # Should we consider the prevalence at a setting level 
 # The first 3 columns correspond to the values of the parameters associated with the distribution of the risk for each of the procedures (rows)
 # The last column is the name of the distribution, for now only "lnorm", "norm" and "pert" are working
 # The values of the parameters of last row always need to be set to 0 as this corresponds to the "no_procedure" event
-dist_risk = read.csv2("C:/Users/paulh/Desktop/Data example/risk_dist.csv")[,4:7]
+dist_risk = read.csv2("C:/Users/paulh/Desktop/Data example/risk_dist.csv")[,3:6]
 dist_risk = rbind(dist_risk,c(0,0,NA,"lnorm")) #Adding a "fake" row for the "no procedure" event 
 dist_risk$par_1 = as.numeric(dist_risk$par_1)
 dist_risk$par_2 = as.numeric(dist_risk$par_2)
