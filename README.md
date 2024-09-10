@@ -1,8 +1,7 @@
 
 # *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> 
 
-<!-- badges: start -->
-<!-- badges: end -->
+
 
 ## Installation
 
