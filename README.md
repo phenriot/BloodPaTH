@@ -1,17 +1,17 @@
-## *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ![BloodPaTH_logo - Copie](https://github.com/user-attachments/assets/cbd2b607-cd24-4818-9c9e-aa5d7485901d)
+# *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  ![BloodPaTH_logo - Copie](https://github.com/user-attachments/assets/cbd2b607-cd24-4818-9c9e-aa5d7485901d)
 
-# Installation
+## Installation
 
 After downloading the BloodPaTH package (BloodPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line (you will need the 'tools' package to process):
  > tools::Rcmd("INSTALL BloodPaTH_1.0.tar.gz")
 
-# How does it work ?  
+## How does it work ?  
 
 ... Coming soon ...
 
 **NB**: This package is in alpha version and is still under development. A Shiny app is currently being developped. 
 
-# Application
+## Application
 
 You will find an application of the model in the "model_application_example.R" file. 
 
