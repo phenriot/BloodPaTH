@@ -19,7 +19,7 @@ You will find an application of the model in the *model_application_example.R* f
 
 To run the code you will need to download the *Data example* folder, in which you will find synthetic data :
 - *List_Transition_Matrices.rds* : An RDS file containng a list of 2 transition matrices between wards of size 29x29
-- *List_Proc_Prob_Matrices.rds* : An RDS file containng a list of 2 matrices of probabilites of undergoing a set of procedures while being hospitalized in each of the ward (size : 28x10)
+- *List_Proc_Prob_Matrices.rds* : An RDS file containng a list of 2 matrices of probabilites of undergoing a set of procedures while being hospitalized in each of the wards (size : 28x10)
 - *association_devices_procedures.csv* : A CSV file summarising the association between devices and procedures (1 : a given device is used during a given procedure, 0 : a given device is not used during a given procedure)
 - *risk_dist.csv* : A CSV file detailing the parameters of the distribution of the risk of getting infected for each type of procedure 
 
