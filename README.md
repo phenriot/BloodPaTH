@@ -15,9 +15,9 @@ After downloading the BloodPaTH package (BloodPaTH_1.0.tar.gz) please start by i
 
 ## Application
 
-You will find an application of the model in the "model_application_example.R" file. 
+You will find an application of the model in the *model_application_example.R* file. 
 
-To run the code you will need to download the "Data example" folder, in which you will find synthetic data :
+To run the code you will need to download the *Data example* folder, in which you will find synthetic data :
 - *List_Transition_Matrices.rds* : An RDS file containng a list of 2 transition matrices between wards of size 29x29
 - *List_Proc_Prob_Matrices.rds* : An RDS file containng a list of 2 matrices of probabilites of undergoing a set of procedures while being hospitalized in each of the ward (size : 28x10)
 - *association_devices_procedures.csv* : A CSV file summarising the association between devices and procedures (1 : a given device is used during a given procedure, 0 : a given device is not used during a given procedure)
@@ -25,7 +25,11 @@ To run the code you will need to download the "Data example" folder, in which yo
 
 **NB:** You will have to change the path when loading the data within you R session. 
 
-You will find in the "Functions_plot.R" file the functions allowing visualization of the output. 
+You will find in the *Functions_plot.R* file the functions allowing visualization of the output. 
+
+## Other info 
+
+The *"Analyses_PlosCompBiol_paper.R"* is the R file summarising all the analyses performed to obtain the results presented in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*] (https://www.medrxiv.org/content/10.1101/2023.11.14.23298506v1).
 
 If you have any question, please reach the author Paul Henriot at the following email adress : paul.henriot@protonmail.com
 
