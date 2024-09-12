@@ -1,5 +1,5 @@
 
-# *BloodPaTH* : Bloodborne Pathogen Transmission in Hospitals 
+# *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals 
 
 ## Introduction <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> </a>
 
