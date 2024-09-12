@@ -39,7 +39,7 @@ clust <- makeCluster(n_cores)
 
 registerDoParallel(clust)
 
-n_sim = 3
+n_sim = 10
 
 ###############
 ## Functions ##
