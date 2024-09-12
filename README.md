@@ -21,7 +21,7 @@ The main model was coded in C++.
 
 *... More coming soon ...*
 
-**NB**: This package is in alpha version and is still under development. A Shiny app is currently being developped. 
+**NB**: This package is an alpha version and is still under development. A Shiny app is currently being developped. 
 
 ## Application
 
