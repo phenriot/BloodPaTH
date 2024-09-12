@@ -6,7 +6,8 @@
 The *BloodPaTh* package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data. This agent-based model reproduces : </br>
 * **i.** geographical movements of patients between wards within the hospital, </br> 
 * **ii.** the medical devices dynamics (contamination, use and reuse of devices as well as the variation of sterile devices availability), and </br>
-* **iii.** the epidemic dynamics of transmission for patients undergoing different types of invasive procedures (following a SEI model).
+* **iii.** the epidemic dynamics of transmission for patients undergoing different types of invasive procedures (following a SEI model). </br>
+You will find further details on the model in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://www.medrxiv.org/content/10.1101/2023.11.14.23298506v1).
 
 ## Installation 
 
