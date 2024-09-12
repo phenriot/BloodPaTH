@@ -3,7 +3,10 @@
 
 ## Introduction <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> </a>
 
-The *BloodPaTh* package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data. This agent-based model reproduces : **i.** geographical movement of patients between wards within the hospital, **ii.** the medical devices dynamics (contamination, use and reuse of devices as well as the variation of sterile devices availability), and **iii.** the epidemic dynamics of transmission for patients undergoing different types of invasive procedures (following a SEI model).
+The *BloodPaTh* package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data. This agent-based model reproduces : 
+**i.** geographical movements of patients between wards within the hospital,
+**ii.** the medical devices dynamics (contamination, use and reuse of devices as well as the variation of sterile devices availability), and
+**iii.** the epidemic dynamics of transmission for patients undergoing different types of invasive procedures (following a SEI model).
 
 ## Installation 
 
