@@ -12,8 +12,17 @@ More details about the model are available in [*An agent-based model to simulate
 
 ## Installation 
 
-After downloading the *BloodPaTH* package (BloodPaTH_1.0.tar.gz) please start by installing it in your R environment using the following command line:
- > tools::Rcmd("INSTALL BloodPaTH_1.0.tar.gz")
+The *BloodPaTH* package can be installed in two ways : 
+
+* **1.** You can simply run the following line within your R session :
+``` r
+devtools::install_github("phenriot/BloodPaTH")
+```
+
+* **2.** After downloading the BloodPaTH_1.0.tar.gz file you can install it in your R environment using the following command line:
+ ``` r
+ tools::Rcmd("INSTALL BloodPaTH_1.0.tar.gz")
+ ```
 
 **NB** : You will need te following packages to proceed : *tools*, *truncnorm*, *mc2d*, *RcppArmadillo*, *Rcpp*
 
