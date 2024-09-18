@@ -14,7 +14,7 @@ More details about the model are available in [*An agent-based model to simulate
 
 The *BloodPaTH* package can be installed in two ways : 
 
-* **1.** Simply run the following line within your R session :
+* **1.** Simply run the following command line within your R session :
 ``` r
 devtools::install_github("phenriot/BloodPaTH")
 ```
