@@ -61,8 +61,13 @@ The main model was coded in C++.
 * ***output*** : should the output be "simple" or "detailed" (the second option is not implemented yet). | <ins> type = string </ins>
 * ***id_sim*** : simulation ID; this is used to facilitate replication of the results and make baseline and intervention scenarios comparable. When performing multiple simulations you will need to inform this parameter with the simulation number to allow replication.  
 
-  
-*... More coming soon ...*
+### Model output (simple) 
+
+*... Coming soon ...*
+
+### Model output (detailed)
+
+*... Coming soon ...*
 
 **NB**: This package is an alpha version and is still under development. A Shiny app is currently being developped. 
 
