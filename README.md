@@ -32,8 +32,8 @@ The main model was coded in C++.
 
 # List of model parameters
 * *time_step* : time-step (must be expressed in hours; **example** : if time step is 1 minute, inform 1/60) | <ins> type = float </ins>
-* *t* : simulation time (must be expressed in hours; **example** : if simulation time in 1 year, inform 24*365 = 8,760) | <ins> type = integer </ins>
-* *pathogen* : bloodborne pathogen type (must be "HCV", "HBV" or "custom"; The "HIV" option is coming soon) | <ins> type = string </ins>
+* *t* : simulation time (must be expressed in hours; **example** : if simulation time in 1 year, inform 24*365 = 8,760) | <ins> type = float </ins>
+* *pathogen* : bloodborne pathogen type (must be "HCV", "HBV" or "custom"; if "custom" then the parameter "dist_risk" needs to be informed; The "HIV" option is coming soon) | <ins> type = string </ins>
 * *nb_patients* : number of patients | <ins> type = integer </ins>
 * *nb_wards* : number of wards within the healthcare setting | <ins> type = integer </ins>
 * *nb_adm* : number of admission routes (i.e, most of the time number of departments) | <ins> type = integer </ins>
