@@ -37,12 +37,13 @@ The main model was coded in C++.
 * *nb_patients* : number of patients | <ins> type = integer </ins>
 * *nb_wards* : number of wards within the healthcare setting | <ins> type = integer </ins>
 * *nb_adm* : number of admission routes (i.e, most of the time number of departments) | <ins> type = integer </ins>
+* *adm_prob* : probability of admission in each of the admission route (must be the same size as *nb_adm* ; this vector needs to sum to 1) | <ins> type = float vector </ins>
 * *prev_type* : you can either inform a prevalence a the admission route level ("admission route") or at a ward level ("ward") | <ins> type = string </ins>
 * *prev_init* : prevalences upon admission (if *prev_type* = "admission route", it needs to be the same size as *nb_adm* ; if *prev_type* = "ward", it needs to be the same size as *nb_wards*) | <ins> type = float vector </ins>
 * *WT_matrix* : merged transition matrices for all admission routes; the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; `list_to_combined_matrices(input = your_list, type = 1, nb_wards = nb_wards)` | <ins> type = float matrix </ins>
 * *nb_procedures* : number of procedures performed within the healthcare setting (must include the "no procedure event"; **example** : if there are 10 different types of procedures perfomed within the hospital then inform 10+1 = 11) | <ins> type = integer </ins>
 * *nb_devices* : number of different devices used within the healthcare setting | <ins> type = integer </ins>
-* *PPM_matrix* : merged matrices of probabilities of undergoing different procedures (columns) within each ward (rows);  the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; `list_to_combined_matrices(input = your_list, type = 2, nb_wards = nb_procedures)` | <ins> type = float matrix </ins>
+* *PPM_matrix* : merged matrices of probabilities of undergoing different procedures (columns) within each ward (rows);  the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; `list_to_combined_matrices(input = your_list, type = 2, nb_procedures = nb_procedures)` | <ins> type = float matrix </ins>
 
 *... More coming soon ...*
 
