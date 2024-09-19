@@ -59,7 +59,7 @@ The main model was coded in C++.
 * *prob_screening* : probability of patient screening upon-admission at a healthcare setting or ward level. | <ins> type = float </ins>
 * *at_risk_wards* : vector of the most at risk wards (i.e, wards in which we want to set an intervention); the wards needs to be informed as integers, corresponding to their rank (or ID). | <ins> type = integer vector </ins>
 * *output* : should the output be "simple" or "detailed" (the second option is not implemented yet). | <ins> type = string </ins>
-* *id_sim* : simulation ID; this is used to facilitate replication of the results and make baseline and intervention scenarios comparable. 
+* *id_sim* : simulation ID; this is used to facilitate replication of the results and make baseline and intervention scenarios comparable. When performing multiple simulations you will need to inform this parameter with the simulation number to allow replication.  
 
   
 *... More coming soon ...*
