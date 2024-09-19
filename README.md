@@ -36,7 +36,7 @@ devtools::install_github("phenriot/BloodPaTH")
 * ***max_e_phase*** : maximum value of the [eclipse phase](https://bio.libretexts.org/Courses/Portland_Community_College/Cascade_Microbiology/06%3A_Acellular_Pathogens/6.2%3A_The_Viral_Life_Cycle) (must be expressed in hours) | <ins> type = float </ins> 
 * ***nb_patients*** : number of patients | <ins> type = integer </ins>
 * ***nb_wards*** : number of wards within the healthcare setting | <ins> type = integer </ins>
-* ***nb_adm*** : number of admission routes (i.e, most of the time number of departments) | <ins> type = integer </ins>
+* ***nb_adm*** : number of admission routes (i.e, most of the time the number of departments) | <ins> type = integer </ins>
 * ***adm_prob*** : probability of admission in each of the admission route (must be the same size as ***nb_adm*** ; this vector needs to sum to 1) | <ins> type = float vector </ins>
 * ***prev_type*** : you can either inform a prevalence a the admission route level ("admission route") or at a ward level ("ward") | <ins> type = string </ins>
 * ***prev_init*** : prevalences upon admission (if ***prev_type*** = "admission route", it needs to be the same size as ***nb_adm*** ; if ***prev_type*** = "ward", it needs to be the same size as ***nb_wards***) | <ins> type = float vector </ins>
