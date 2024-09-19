@@ -34,6 +34,8 @@ The main model was coded in C++.
 * *time_step* : time-step (must be expressed in hours; **example** : if time step is 1 minute, inform 1/60) | <ins> type = float </ins>
 * *t* : simulation time (must be expressed in hours; **example** : if simulation time in 1 year, inform 24*365 = 8,760) | <ins> type = float </ins>
 * *pathogen* : bloodborne pathogen type (must be "HCV", "HBV" or "custom"; if "custom" then the parameter *dist_risk* needs to be informed; The "HIV" option is coming soon) | <ins> type = string </ins>
+* *min_e_phase* : minimum value of the [eclipse phase](https://bio.libretexts.org/Courses/Portland_Community_College/Cascade_Microbiology/06%3A_Acellular_Pathogens/6.2%3A_The_Viral_Life_Cycle) (must be expressed in hours) | <ins> type = float </ins>
+* *max_e_phase* : maximum value of the [eclipse phase](https://bio.libretexts.org/Courses/Portland_Community_College/Cascade_Microbiology/06%3A_Acellular_Pathogens/6.2%3A_The_Viral_Life_Cycle) (must be expressed in hours) | <ins> type = float </ins> 
 * *nb_patients* : number of patients | <ins> type = integer </ins>
 * *nb_wards* : number of wards within the healthcare setting | <ins> type = integer </ins>
 * *nb_adm* : number of admission routes (i.e, most of the time number of departments) | <ins> type = integer </ins>
@@ -44,6 +46,13 @@ The main model was coded in C++.
 * *nb_procedures* : number of procedures performed within the healthcare setting (must include the "no procedure event"; **example** : if there are 10 different types of procedures perfomed within the hospital then inform 10+1 = 11) | <ins> type = integer </ins>
 * *procedure_names* : vector of procedure names | <ins> type = string vector </ins>
 * *nb_devices* : number of different devices used within the healthcare setting | <ins> type = integer </ins>
+* *device_names* : vector of devices names | <ins> type = string vector </ins>
+* *nb_devices_new* : initial number of new sterile devices in each ward; matrix of size *nb_wards* * *nb_devices*  | <ins> type = integer matrix </ins>
+* *nb_devices_used* : initial number of non-sterile devices (previously used) in each ward; matrix of size *nb_wards* * *nb_devices*  | <ins> type = integer matrix </ins>
+* *nb_devices_cont* : initial number of non-sterile and contaminated devices in each ward; matrix of size *nb_wards* * *nb_devices*  | <ins> type = integer matrix </ins>
+* *refill_quantities* : quantity of devices to add to the pool of sterile devices for each type at each refill event; matrix of size *nb_wards* * *nb_devices*  | <ins> type = integer matrix </ins>
+* *refill_freq* : refill frequency for each type of device in each ward (must be expressed in hours); matrix of size *nb_wards* * *nb_devices*  | <ins> type = integer matrix </ins>
+* *sterilization_prob* : sterilization probability for each type of device (might evolve to a matrix of ward-specific probabilities in the future) | <ins> type = float vector </ins> 
 * *PPM_matrix* : merged matrices of probabilities of undergoing different procedures (columns) within each ward (rows);  the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; `list_to_combined_matrices(input = your_list, type = 2, nb_procedures = nb_procedures)` . These probability matrices must be of size *nb_wards* * *nb_procedures* | <ins> type = float matrix </ins>
 * *dist_risk* : parameters of the distributions of the of risk of getting infected for each of the procedures. The first three columns correspond to the values of the parameters of these distributions and the fourth to the type of distribution (log-normal : "lnorm", gaussian :"norm" or PERT : "pert"). Only the two first columns are used for the [log-normal](https://en.wikipedia.org/wiki/Log-normal_distribution) and [normal](https://en.wikipedia.org/wiki/Normal_distribution) distributions (for $\mu$ and  	$\sigma^2$); all columns are used for the [PERT](https://en.wikipedia.org/wiki/PERT_distribution) distribution (for $a$, $b$ and $c$). This data frame needs to have *nb_procedures* rows; the last corresponds to the risk of getting infected when undergoing no procedure (which is 0), then it can be defined as something like &rarr; `rbind(your_dist_risk_data_frame,c(0,0,NA,"lnorm"))` | <ins> type = data frame </ins>
 
