@@ -31,7 +31,7 @@ devtools::install_github("phenriot/BloodPaTH")
 The main model was coded in C++.
 
 ### List of model parameters ###
-* <p style="font-size: 16px;">*time_step* </p> : time-step (must be expressed in hours; **example** : if time step is 1 minute, inform 1/60) | <ins> type = float </ins>
+* ***time_step*** : time-step (must be expressed in hours; **example** : if time step is 1 minute, inform 1/60) | <ins> type = float </ins>
 * *t* : simulation time (must be expressed in hours; **example** : if simulation time in 1 year, inform 24*365 = 8,760) | <ins> type = float </ins>
 * *pathogen* : bloodborne pathogen type (must be "HCV", "HBV" or "custom"; if "custom" then the parameter *dist_risk* needs to be informed; The "HIV" option is coming soon) | <ins> type = string </ins>
 * *min_e_phase* : minimum value of the [eclipse phase](https://bio.libretexts.org/Courses/Portland_Community_College/Cascade_Microbiology/06%3A_Acellular_Pathogens/6.2%3A_The_Viral_Life_Cycle) (must be expressed in hours) | <ins> type = float </ins>
