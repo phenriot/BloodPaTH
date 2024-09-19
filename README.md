@@ -39,7 +39,7 @@ The main model was coded in C++.
 * *nb_adm* : number of admission routes (i.e, most of the time number of departments) | <ins> type = integer </ins>
 * *prev_type* : you can either inform a prevalence a the admission route level ("admission route") or at a ward level ("ward") | <ins> type = string </ins>
 * *prev_init* : prevalences upon admission (if *prev_type* = "admission route", it needs to be the same size as *nb_adm* ; if *prev_type* = "ward", it needs to be the same size as *nb_wards*) | <ins> type = float vector </ins>
-* *WT_matrix* : merged transition matrices for all admission routes; the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; \char`_list_to_combined_matrices(input = *your_list*, type = *1*, nb_wards = *nb_wards*)
+* *WT_matrix* : merged transition matrices for all admission routes; the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; `list_to_combined_matrices(input = *your_list*, type = *1*, nb_wards = *nb_wards*)`
 
 *... More coming soon ...*
 
