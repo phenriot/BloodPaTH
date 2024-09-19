@@ -30,6 +30,11 @@ devtools::install_github("phenriot/BloodPaTH")
 
 The main model was coded in C++.
 
+# List of model parameters
+* *time_step* : time-step (must be expressed in hours; **example** : if time step is 1 minute, inform 1/60)
+* *t* : simulation time (in hours; **example** : if simulation time in 1 year, inform 24*365 = 8,760)
+* 
+
 *... More coming soon ...*
 
 **NB**: This package is an alpha version and is still under development. A Shiny app is currently being developped. 
