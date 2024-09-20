@@ -43,7 +43,7 @@ devtools::install_github("phenriot/BloodPaTH")
 * ***WT_matrix*** : merged transition matrices for all admission routes; the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; `list_to_combined_matrices(input = your_list, type = 1, nb_wards = nb_wards)` . Transition matrices must be of size (***nb_wards***+1) * (***nb_wards***+1) (i.e, include an extra row and an extra column for the "discharged" event)  | <ins> type = float matrix </ins>
 * ***nb_procedures*** : number of procedures performed within the healthcare setting (must include the "no procedure event"; **example** : if there are 10 different types of procedures perfomed within the hospital then inform 10+1 = 11) | <ins> type = integer </ins>
 * ***procedure_names*** : vector of procedure names | <ins> type = string vector </ins>
-* ***nb_devices*** : number of different devices used within the healthcare setting | <ins> type = integer </ins>
+* ***nb_devices*** : number of different device types used within the healthcare setting | <ins> type = integer </ins>
 * ***device_names*** : vector of devices names | <ins> type = string vector </ins>
 * ***nb_devices_new*** : initial number of new sterile devices in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
 * ***nb_devices_used*** : initial number of non-sterile devices (previously used) in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
