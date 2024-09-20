@@ -41,7 +41,7 @@ devtools::install_github("phenriot/BloodPaTH")
 * ***prev_type*** : you can either inform a prevalence at the admission route level ("admission route") or at a ward level ("ward") | <ins> type = string </ins>
 * ***prev_init*** : prevalences upon admission (if ***prev_type*** = "admission route", it needs to be the same size as ***nb_adm*** ; if ***prev_type*** = "ward", it needs to be the same size as ***nb_wards***) | <ins> type = float vector </ins>
 * ***WT_matrix*** : merged transition matrices for all admission routes; the *list_to_combined_matrices* R function helps to convert a list of transition matrices as follows &rarr; `list_to_combined_matrices(input = your_list, type = 1, nb_wards = nb_wards)` . Transition matrices must be of size (***nb_wards***+1) * (***nb_wards***+1) (i.e, include an extra row and an extra column for the "discharged" event)  | <ins> type = float matrix </ins>
-* ***nb_procedures*** : number of procedures performed within the healthcare setting (must include the "no procedure event"; **example** : if there are 10 different types of procedures perfomed within the hospital then inform 10+1 = 11) | <ins> type = integer </ins>
+* ***nb_procedures*** : number of procedure types performed within the healthcare setting (must include the "no procedure event"; **example** : if there are 10 different types of procedures perfomed within the hospital then inform 10+1 = 11) | <ins> type = integer </ins>
 * ***procedure_names*** : vector of procedure names | <ins> type = string vector </ins>
 * ***nb_devices*** : number of different device types used within the healthcare setting | <ins> type = integer </ins>
 * ***device_names*** : vector of devices names | <ins> type = string vector </ins>
