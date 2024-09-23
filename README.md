@@ -86,4 +86,4 @@ To run the code you will need to download the *Data example* folder, in which yo
 
 ## Contact
 
-If you have any question, please reach the author <a href="mailto:paul.henriot@protonmail.com">Paul Henriot</a>
+If you have any questions, please reach the author <a href="mailto:paul.henriot@protonmail.com">Paul Henriot</a>
