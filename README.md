@@ -48,7 +48,7 @@ devtools::install_github("phenriot/BloodPaTH")
 * ***device_names*** : vector of devices names | <ins> type = string vector </ins>
 * ***nb_devices_new*** : initial number of new sterile devices in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
 * ***nb_devices_used*** : initial number of non-sterile devices (previously used) in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
-* ***nb_devices_cont*** : initial number of non-sterile and contaminated devices in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
+* ***nb_devices_contaminated*** : initial number of non-sterile and contaminated devices in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
 * ***refill_quantities*** : quantity of devices to add to the pool of sterile devices for each type at each refill event; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
 * ***refill_freq*** : refill frequency for each type of device in each ward (must be expressed in hours); matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
 * ***sterilization_prob*** : efficient sterilization probability for each type of device (might evolve to a matrix of ward-specific probabilities in the future) | <ins> type = float vector </ins> 
