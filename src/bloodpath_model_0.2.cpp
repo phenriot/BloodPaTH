@@ -1387,7 +1387,7 @@ List BloodPaTH_model(      float time_step,
   }
   
   //removing last column because because size = time+1
-  pop_hosp_status.shed_col(t);
+  pop_hosp_status.shed_col(round(t*(1/time_step)));
 
   if(output=="simple") {
     
