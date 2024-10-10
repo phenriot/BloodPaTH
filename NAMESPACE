@@ -1,0 +1,6 @@
+import(truncnorm)
+import(mc2d)
+import(stats)
+useDynLib(BloodPaTH, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
