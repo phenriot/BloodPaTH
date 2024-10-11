@@ -68,6 +68,10 @@ devtools::install_github("phenriot/BloodPaTH")
 
 *... Coming soon ...*
 
+### Visualise the results 
+
+*... Coming soon ...*
+
 **NB**: This package is an alpha version and is still under development. A Shiny app is currently being developped. 
 
 ## Application
