@@ -1,7 +1,6 @@
 ##########################
 ### Loading packages   ###
 ##########################
-
 library(BloodPaTH)
 library(parallel)
 library(graphics)
@@ -110,7 +109,7 @@ list_to_combined_matrices = function(input,type,nb_wards=NULL,nb_procedures=NULL
 
 
 time_step = 1/12 # Expressed in hours, here this corresponds to 5 minutes time steps
-time = 105120 # Simulation time, 105,120 5-minutes-time-steps
+time = 8760 # Simulation time, 105,120 5-minutes-time-steps
 nb_patients = 970
 nb_proc = 15 + 1 # 15 procedures + 1 procedure corresponding to the "no procedure" event 
 procedure_names = paste("Procedure",LETTERS[seq( from = 1, to = nb_proc-1 )]) # Vector with the names of each procedure (excluding the "no procedure" event)
@@ -153,7 +152,7 @@ nb_devices_new = matrix(data = round(runif(nb_wards*nb_devices,min = 0,max=10000
 nb_devices_used = nb_devices_new*0.2 # Random matrix for the number of non-sterile devices in each ward at initialization
 nb_devices_cont = nb_devices_new*0 # We start with not contaminated device at initialization 
 
-refill_time = matrix(data = round(runif(nb_wards*nb_devices,min = 0,max=105120)),nrow =nb_devices,ncol = nb_wards) # Time at which a ward gets refilled with a given type of device, size : nb_wards*nb_devices
+refill_time = round(matrix(data = round(runif(nb_wards*nb_devices,min = 0,max=8760)),nrow =nb_devices,ncol = nb_wards)) # Time at which a ward gets refilled with a given type of device, size : nb_wards*nb_devices
 refill_quantities = matrix(data = round(runif(nb_wards*nb_devices,min = 0,max=10000)),nrow =nb_devices,ncol = nb_wards) # Associated refill quantities
 
 # Pathogen-associated parameters
@@ -165,58 +164,55 @@ prevalence_type = "ward" # Should we consider the prevalence at a setting level 
 # The first 3 columns correspond to the values of the parameters associated with the distribution of the risk for each of the procedures (rows)
 # The last column is the name of the distribution, for now only "lnorm", "norm" and "pert" are working
 # The values of the parameters of last row always need to be set to 0 as this corresponds to the "no_procedure" event
-dist_risk = read.csv2("C:/Users/paulh/Desktop/Data example/risk_dist.csv")[,3:6]
+dist_risk = read.csv2("C:/Users/paulh/Desktop/Data example/risk_dist.csv")[,4:7]
 dist_risk = rbind(dist_risk,c(0,0,NA,"lnorm")) #Adding a "fake" row for the "no procedure" event 
 dist_risk$par_1 = as.numeric(dist_risk$par_1)
 dist_risk$par_2 = as.numeric(dist_risk$par_2)
 dist_risk$par_3 = as.numeric(dist_risk$par_3)
 
 
-min_e_phase_HCV = 576 # Min. duration of the eclipse phase
-max_e_phase_HCV = 4032 # Max. duration of the eclipse phase
+min_e_phase_HCV = 48 # Min. duration of the eclipse phase
+max_e_phase_HCV = 336 # Max. duration of the eclipse phase
 
 # Launching the model
 output = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
   
-  bloodpath_model(t=time, #simulation time
-                 n_patients=nb_patients, # number of patients
-                 nb_wards=nb_wards, # number of wards
-                 nb_adm=nb_adm_routes, # number of admission routes
-                 prev_init = initial_ward_prevalence, # initial prevalence for each admission route
-                 prev_type = prevalence_type,
-                 WT_matrix=combined_TM, #transition matrix, specific format (merged matrix for all admission routes) but any time-step will do
-                 init_prob = rbind(freq_adm_A1,freq_adm_A2), # matrix of probabilities of admission for first ward for both adm routes, nb_adm rows . 
-                 adm_prob=adm_prob,# probabilities of admission for each route
-                 nb_procedures=nb_proc, #number of procedures 
-                 nb_equipments=nb_devices, # number of equipments
-                 PPM_matrix=combined_PPM, # probabilities of undergoing procedures (columns) in each ward (row), merged for both admission routes; Any time-step is ok but need to be the same as the transition matrix
-                 dist_risk=dist_risk, # distribution parameters of the risk for each procedure (dist can be normal, log-normal or pert)
-                 nb_material_new=nb_devices_new , # quantity of equipment for each type in  each ward
-                 nb_material_used=nb_devices_used, # quantity of equipment for each type in  each ward
-                 nb_material_contaminated=nb_devices_cont, # quantity of equipment for each type in  each ward
-                 min_e_phase=min_e_phase_HCV, # min value for the eclipse phase
-                 max_e_phase=max_e_phase_HCV, # max value for the eclipse phase
-                 time_step=time_step, # must be expressed in hours (ex: if time step is 5min then inform 1/12)
-                 patient_followup=F, # useless
-                 table_proc_equip=association_matrix, # correspondence table between procedures (col 1) and equipments (col 2)
-                 procedure_names=procedure_names, # vector of procedure names 
-                 equipment_names=device_names, # vector of equipments names
-                 sterilization_prob=sterilization_prob, # probability of good sterilization for each equipment
-                 eq_quantity = "fixed",
-                 refill_quantities=refill_quantities, # quantity of equipment to add to the pool of unused equipment for each type at each refill event
-                 refill_freq=refill_time,# refill frequency for each equipment type (must be expressed in hours)
-                 equip_bin=matrix(data = 0),
-                 output = "simple",
-                 prob_screening=prob_screening,
-                 intervention = intervention,
-                 at_risk_wards = at_risk_wards,
-                 threshold_reuse= rep(-1,10),
-                 id_sim = n)
+  BloodPaTH_model(time_step=time_step, # must be expressed in hours (ex: if time step is 5min then inform 1/12)
+                  t=time, #simulation time
+                  pathogen = "HCV",
+                  min_e_phase=min_e_phase_HCV, # min value for the eclipse phase
+                  max_e_phase=max_e_phase_HCV, # max value for the eclipse phase
+                  nb_patients=nb_patients, # number of patients
+                  nb_wards=nb_wards, # number of wards
+                  nb_adm=nb_adm_routes, # number of admission routes
+                  adm_prob=adm_prob,# probabilities of admission for each route
+                  init_prob = rbind(freq_adm_A1,freq_adm_A2), # matrix of probabilities of admission for first ward for both adm routes, nb_adm rows . 
+                  prev_type = prevalence_type,
+                  prev_init = initial_ward_prevalence, # initial prevalence for each admission route
+                  WT_matrix=combined_TM, #transition matrix, specific format (merged matrix for all admission routes) but any time-step will do
+                  nb_procedures=nb_proc, #number of procedures 
+                  procedure_names=procedure_names, # vector of procedure names 
+                  nb_devices=nb_devices, # number of equipments
+                  device_names=device_names, # vector of equipments names
+                  nb_devices_new=nb_devices_new , # quantity of equipment for each type in  each ward
+                  nb_devices_used=nb_devices_used, # quantity of equipment for each type in  each ward
+                  nb_devices_contaminated=nb_devices_cont, # quantity of equipment for each type in  each ward
+                  refill_quantities=refill_quantities, # quantity of equipment to add to the pool of unused equipment for each type at each refill event
+                  refill_freq=refill_time,# refill frequency for each equipment type (must be expressed in hours)
+                  table_procedures_devices=association_matrix, # correspondence table between procedures (col 1) and equipments (col 2)
+                  sterilization_prob=sterilization_prob, # probability of good sterilization for each equipment        
+                  PPM_matrix=combined_PPM, # probabilities of undergoing procedures (columns) in each ward (row), merged for both admission routes; Any time-step is ok but need to be the same as the transition matrix
+                  dist_risk=dist_risk, # distribution parameters of the risk for each procedure (dist can be normal, log-normal or pert)
+                  intervention = intervention, 
+                  prob_screening=prob_screening,
+                  at_risk_wards = at_risk_wards,
+                  output = "simple",
+                  id_sim = n)
 }
 
 
 #Yearly cumulative incidence per 100,000 patients 
-yearly_cum_inc(output,n_sim=10)
+yearly_cum_inc(output,n_sim=1)
 
 #Daily incidence over a year
-plot_incidence(output,n_sim=10,time)
+plot_incidence(output,n_sim=1,time)
