@@ -123,9 +123,11 @@ List BloodPaTH_model(      float time_step,
                            arma::irowvec at_risk_wards=0, // vector giving the most at risk wards
                            std::string output="simple",//if output == "all" then returns all tables, if "simple" returns nb of new cases each day and new entry in the hospital
                            int id_sim=1
-                           )
+)
 {
-    
+  
+  int real_t = round(t*(1/time_step));
+  
   List list_proc_equip = transform_list(nb_procedures,table_procedures_devices);
   
   
@@ -146,7 +148,7 @@ List BloodPaTH_model(      float time_step,
   if(prev_type=="ward" && prev_init.size() != nb_wards) {stop("Error: Initial prevalence type chosen is at a ward-level, should be the same size as the number of wards");}
   if(prev_type=="admission route" && prev_init.size() != nb_adm) {stop("Error: Initial prevalence type chosen is at a admission route-level, should be the same size as the number of admission routes");}
   //if(WT_matrix.n_rows < n_wards) {stop("Error: number of rows in WT_matrix < n_wards");}
-
+  
   //vector for 2= positive, 0=negative
   arma::drowvec pos_neg_vec = {0,2};
   arma::dcolvec cont_neg_vec = {0,1};
@@ -154,19 +156,21 @@ List BloodPaTH_model(      float time_step,
   arma::drowvec screened_pos_neg_vec = {1,2};
   
   //Matrix for status of patients in the hospital
-  arma::dmat pop_hosp_status = arma::dmat(nb_patients,round(t*(1/time_step))+1,arma::fill::zeros); //No need to t+1 because first index = 0
-  arma::dmat pop_hosp_status_inter = arma::dmat(nb_patients,round(t*(1/time_step))+1,arma::fill::zeros); //No need to t+1 because first index = 0
+  arma::dmat pop_hosp_status = arma::dmat(nb_patients,real_t+1,arma::fill::zeros); //No need to t+1 because first index = 0
+  arma::dmat pop_hosp_status_inter = arma::dmat(nb_patients,real_t+1,arma::fill::zeros); //No need to t+1 because first index = 0
+  
+  Rcout << pop_hosp_status.size();
   
   //Matrix for available devices through time
   
-  arma::icube available_mat_time(nb_devices,nb_wards,round(t*(1/time_step))+1);
-  arma::icube available_mat_time_inter(nb_devices,nb_wards,round(t*(1/time_step))+1);
+  arma::icube available_mat_time(nb_devices,nb_wards,real_t+1);
+  arma::icube available_mat_time_inter(nb_devices,nb_wards,real_t+1);
   
-  arma::icube cont_mat_time(nb_devices,nb_wards,round(t*(1/time_step))+1);
-  arma::icube cont_mat_time_inter(nb_devices,nb_wards,round(t*(1/time_step))+1);
+  arma::icube cont_mat_time(nb_devices,nb_wards,real_t+1);
+  arma::icube cont_mat_time_inter(nb_devices,nb_wards,real_t+1);
   
-  arma::icube used_mat_time(nb_devices,nb_wards,round(t*(1/time_step))+1);
-  arma::icube used_mat_time_inter(nb_devices,nb_wards,round(t*(1/time_step))+1); 
+  arma::icube used_mat_time(nb_devices,nb_wards,real_t+1);
+  arma::icube used_mat_time_inter(nb_devices,nb_wards,real_t+1); 
   
   
   // counting nb of patients hospitalized on the periode 
@@ -182,10 +186,10 @@ List BloodPaTH_model(      float time_step,
   arma::irowvec cont_new_patient_ward(nb_wards,arma::fill::zeros);
   
   //Matrix for location of patients in the hospital
-  arma::dmat pop_hosp_loc = arma::dmat(nb_patients,round(t*(1/time_step))+1,arma::fill::zeros); //No need to t+1 because first index = 0
+  arma::dmat pop_hosp_loc = arma::dmat(nb_patients,real_t+1,arma::fill::zeros); //No need to t+1 because first index = 0
   
   //Matrix of procedures undergone by patients during hosp
-  arma::dmat pop_proc = arma::dmat(nb_patients,round(t*(1/time_step))+1,arma::fill::zeros); //No need to t+1 because first index = 0
+  arma::dmat pop_proc = arma::dmat(nb_patients,real_t+1,arma::fill::zeros); //No need to t+1 because first index = 0
   
   //Matrix of number of previously used devicess (initialized at 0 for each procedure in each ward)
   arma::imat Npu_mat = nb_devices_used;
@@ -212,19 +216,19 @@ List BloodPaTH_model(      float time_step,
   arma::drowvec proc_seq = arma::linspace<arma::drowvec>(1,nb_procedures,nb_procedures);
   
   //incidence vector
-  arma::drowvec incidence(t,arma::fill::zeros);
-  arma::drowvec incidence_inter(t,arma::fill::zeros);
+  arma::drowvec incidence(real_t,arma::fill::zeros);
+  arma::drowvec incidence_inter(real_t,arma::fill::zeros);
   
   //number of s patients vector
-  arma::drowvec s_patients(t,arma::fill::zeros);
-  arma::drowvec s_patients_inter(t,arma::fill::zeros);
+  arma::drowvec s_patients(real_t,arma::fill::zeros);
+  arma::drowvec s_patients_inter(real_t,arma::fill::zeros);
   
   //new patients
-  arma::drowvec new_patient_vec(t,arma::fill::zeros);
+  arma::drowvec new_patient_vec(real_t,arma::fill::zeros);
   new_patient_vec(0) = nb_patients;
   
   //contaminated new patients
-  arma::drowvec cont_new_patient_vec(t,arma::fill::zeros);
+  arma::drowvec cont_new_patient_vec(real_t,arma::fill::zeros);
   arma::drowvec cont_new_patient_vec_inter(t,arma::fill::zeros);
   
   //time counter to assign patient in the E state to the I state
@@ -256,8 +260,8 @@ List BloodPaTH_model(      float time_step,
   arma::drowvec ward_event_inter(nb_wards,arma::fill::zeros);// starts at 0
   
   //matrix to store nb of suceptible patients in each ward
-  arma::dmat ward_s = arma::dmat(nb_wards,round(t*(1/time_step))+1,arma::fill::zeros);
-  arma::dmat ward_s_inter = arma::dmat(nb_wards,round(t*(1/time_step))+1,arma::fill::zeros);
+  arma::dmat ward_s = arma::dmat(nb_wards,real_t+1,arma::fill::zeros);
+  arma::dmat ward_s_inter = arma::dmat(nb_wards,real_t+1,arma::fill::zeros);
   
   //vector to store nb of infection events
   arma::drowvec cont_mat(nb_devices,arma::fill::zeros);// starts at 0
@@ -368,18 +372,16 @@ List BloodPaTH_model(      float time_step,
   wards_out_seq.resize(state_out);
   wards_out_seq(wards_out_seq.size()-1) = state_out;
   
-  for(unsigned int time = 0; time<round(t*(1/time_step));time++) {
+  for(unsigned int time = 0; time<real_t;time++) {
     
-    // set_seed((time+1)*id_sim); 
     rdm_patient  = sample(patient_id,nb_patients,false);
-    
     
     for(unsigned int j = 0; j<nb_patients;j++) {
       
       unsigned int p = rdm_patient(j);
       
       int current_ward = pop_hosp_loc(p,time);
-      
+
       // giving submatrix : rows in span  index_TM(0) --> index_TM(1)-1
       storage_adm_TM = WT_matrix(arma::span(index_TM(admission_route(p)-1),index_TM(admission_route(p))-1),arma::span(0,nb_wards));
       storage_adm_TM =  storage_adm_TM.t();
@@ -427,6 +429,7 @@ List BloodPaTH_model(      float time_step,
         
       }
       
+      
       //////////////////////////
       // NO INTERVENTION PART //
       //////////////////////////
@@ -454,7 +457,7 @@ List BloodPaTH_model(      float time_step,
           //random draw for reused devices
           int reuse = 0;
           
-        
+          
           float init_eq = n_available + n_pu;
           
           //if no more available devices
@@ -473,10 +476,8 @@ List BloodPaTH_model(      float time_step,
             float n_c = C_mat(current_device-1,current_ward-1);
             double prob_Cpw = n_c / n_pu; // prob of drawing a contaminated device
             
-            // Rcout<< prob_Cpw; 
             if(prob_Cpw > 1) {Rcout<< prob_Cpw; prob_Cpw=1;}
             
-            //Rcout<<prob_Cpw ;
             arma::dcolvec vec_prob_Cpw = {1-prob_Cpw,prob_Cpw};
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*1));
@@ -585,10 +586,9 @@ List BloodPaTH_model(      float time_step,
             
             float n_c = C_mat(current_device-1,current_ward-1);
             double prob_Cpw = n_c / n_pu; // prob of drawing a contaminated device
-          
+            
             if(prob_Cpw > 1) {Rcout<< prob_Cpw; prob_Cpw=1;}
             
-            //Rcout<<prob_Cpw ;
             arma::dcolvec vec_prob_Cpw = {1-prob_Cpw,prob_Cpw};
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*5));
@@ -640,7 +640,6 @@ List BloodPaTH_model(      float time_step,
           
           //if no more available devices
           float init_eq = n_available + n_pu;
-          //Rcout << init_eq;
           
           if(n_available < 1) {reuse = 1;}
           
@@ -683,7 +682,7 @@ List BloodPaTH_model(      float time_step,
               // probability of device being well sterilized
               double prob_ster = sterilization_prob(current_device-1);
               arma::dcolvec vec_prob_ster = {1-prob_ster,prob_ster};
-
+              
               set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*9));
               int sterilized = sample(failure_success,1,false,vec_prob_ster)(0);
               
@@ -730,13 +729,8 @@ List BloodPaTH_model(      float time_step,
               
               prob_E = risk_p*HBV_mult;
               
-              Rcout<< prob_E;
-              
             }
             
-            
-            
-            Rcout<< prob_E;
             
             //Probability of going from the S to the E state
             
@@ -778,12 +772,12 @@ List BloodPaTH_model(      float time_step,
               prob_E = risk_p*HBV_mult;
               
             }
-
+            
             if (prob_E<0) {prob_E=0;}
             if (prob_E>1) {prob_E=1;}
             
             arma::dcolvec prob_inf_vector = {1-prob_E,prob_E};
-          
+            
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*15));
             int draw_infection = sample(cont_neg_vec,1,false,prob_inf_vector)(0);
             
@@ -821,10 +815,10 @@ List BloodPaTH_model(      float time_step,
               prob_E = risk_p*HBV_mult;
               
             }
-
+            
             if (prob_E<0) {prob_E=0;}
             if (prob_E>1) {prob_E=1;}
-
+            
             arma::dcolvec prob_inf_vector = {1-prob_E,prob_E};
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*18));
@@ -834,11 +828,10 @@ List BloodPaTH_model(      float time_step,
             
             for(int ei = 0; ei < list_equip.n_cols; ei++) {if(prob_eq_vec(ei)==1) {inf_eq(list_equip(ei)-1) = inf_eq(list_equip(ei)-1)+1;} } 
             
-              }
             }
           }
         }
-      
+      }
       
       ////////////////////////////
       // WITH INTERVENTION PART //
@@ -865,7 +858,7 @@ List BloodPaTH_model(      float time_step,
           
           //random draw for reused devices
           int reuse = 0;
-
+          
           float init_eq = n_available + n_pu;
           
           //if no more available devices
@@ -883,7 +876,7 @@ List BloodPaTH_model(      float time_step,
             
             float n_c = C_mat_inter(current_device-1,current_ward-1);
             double prob_Cpw = n_c / n_pu; // prob of drawing a contaminated device
-
+            
             arma::dcolvec vec_prob_Cpw = {1-prob_Cpw,prob_Cpw};
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*1));
@@ -915,7 +908,7 @@ List BloodPaTH_model(      float time_step,
               // probability of device being well sterilized
               double prob_ster = sterilization_prob(current_device-1);
               arma::dcolvec vec_prob_ster = {1-prob_ster,prob_ster};
-
+              
               set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*3));
               int sterilized = sample(failure_success,1,false,vec_prob_ster)(0);
               
@@ -938,7 +931,7 @@ List BloodPaTH_model(      float time_step,
             
             double prob_ster = sterilization_prob(current_device-1);
             arma::dcolvec vec_prob_ster = {1-prob_ster,prob_ster};
-
+            
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*4));
             int sterilized = sample(failure_success,1,false,vec_prob_ster)(0);
             
@@ -971,7 +964,7 @@ List BloodPaTH_model(      float time_step,
           
           //random draw for reused devices
           int reuse = 0;
-
+          
           float init_eq = n_available + n_pu;
           //Rcout << init_eq;
           
@@ -991,14 +984,14 @@ List BloodPaTH_model(      float time_step,
           
           //if reusing draw to know if reused mat is contaminated
           if(reuse == 1) {
-
+            
             used_mat_inter(current_device-1) = used_mat_inter(current_device-1)+1;
             
             float n_c = C_mat_inter(current_device-1,current_ward-1);
             double prob_Cpw = n_c / n_pu; // prob of drawing a contaminated device
-
+            
             if(prob_Cpw > 1) {Rcout<< prob_Cpw; prob_Cpw=1;}
-
+            
             arma::dcolvec vec_prob_Cpw = {1-prob_Cpw,prob_Cpw};
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*5));
@@ -1046,10 +1039,9 @@ List BloodPaTH_model(      float time_step,
           
           //random draw for reused devices
           int reuse = 0;
-
+          
           //if no more available devices
           float init_eq = n_available + n_pu;
-          //Rcout << init_eq;
           
           if(n_available < 1) {reuse = 1;}
           
@@ -1072,14 +1064,12 @@ List BloodPaTH_model(      float time_step,
           
           //if reusing draw to know if reused mat is contaminated
           if(reuse == 1) {
-
+            
             used_mat_inter(current_device-1) = used_mat_inter(current_device-1)+1;
-
+            
             float n_c = C_mat_inter(current_device-1,current_ward-1);
             double prob_Cpw = n_c / n_pu; // prob of drawing a contaminated device
-
-            if(prob_Cpw > 1) {Rcout<< prob_Cpw; prob_Cpw=1;}
-
+            
             arma::dcolvec vec_prob_Cpw = {1-prob_Cpw,prob_Cpw};
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*8));
@@ -1095,7 +1085,7 @@ List BloodPaTH_model(      float time_step,
               // probability of device being well sterilized
               double prob_ster = sterilization_prob(current_device-1);
               arma::dcolvec vec_prob_ster = {1-prob_ster,prob_ster};
-
+              
               set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*9));
               int sterilized = sample(failure_success,1,false,vec_prob_ster)(0);
               
@@ -1113,14 +1103,14 @@ List BloodPaTH_model(      float time_step,
             
           }
         }
-
+        
         //if a least 1 eq is contaminated
         if(sum(prob_eq_vec) >= 1) {
-
+          
           StringVector vec_dist = dist_risk["dist"];
           
           if(vec_dist(current_proc-1)=="lnorm") {
-    
+            
             arma::fvec lmean_vec = dist_risk[0];
             
             arma::fvec lsd_vec = dist_risk[1];
@@ -1140,11 +1130,11 @@ List BloodPaTH_model(      float time_step,
               float HBV_mult = Rcpp::as<float> (random_unif(_["n"]=1,_["min"]=4,_["max"]=20)); //risk mult for HBV
               
               prob_E = risk_p*HBV_mult;
-
+              
             }
-  
+            
             //Probability of going from the S to the E state
-
+            
             if (prob_E<0) {prob_E=0;}
             if (prob_E>1) {prob_E=1;}
             
@@ -1176,17 +1166,17 @@ List BloodPaTH_model(      float time_step,
             float prob_E = risk_p;
             
             if(pathogen=="HBV") {
-
+              
               set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*14));
               float HBV_mult = Rcpp::as<float> (random_unif(_["n"]=1,_["min"]=4,_["max"]=20)); //risk mult for HBV
               
               prob_E = risk_p*HBV_mult;
-
+              
             }
-
+            
             if (prob_E<0) {prob_E=0;}
             if (prob_E>1) {prob_E=1;}
-
+            
             arma::dcolvec prob_inf_vector = {1-prob_E,prob_E};
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*15));
@@ -1226,13 +1216,12 @@ List BloodPaTH_model(      float time_step,
               prob_E = risk_p*HBV_mult;
               
             }
-
+            
             if (prob_E<0) {prob_E=0;}
             if (prob_E>1) {prob_E=1;}
-
+            
             arma::dcolvec prob_inf_vector = {1-prob_E,prob_E};
             
-            set_seed(((p+1)+(time+1))*id_sim);
             
             set_seed(round((((time+1)+(p+1))/(p+1))*id_sim*18));
             int draw_infection = sample(cont_neg_vec,1,false,prob_inf_vector)(0);
@@ -1250,19 +1239,22 @@ List BloodPaTH_model(      float time_step,
       if(pop_hosp_status(p,time) == 1) {state_counter(p) = state_counter(p) + 1;}
       if(pop_hosp_status_inter(p,time) == 1) {state_counter_inter(p) = state_counter_inter(p) + 1;}
       
+      
       //if counter exceed the time of the eclipse phase then patient goes from E to I
       if(state_counter(p) >= e_phase(p) && pop_hosp_status(p,time) == 1 ) {pop_hosp_status(p,time) = 3; }
       if(state_counter_inter(p) >= e_phase(p) && pop_hosp_status_inter(p,time) == 1 ) {pop_hosp_status_inter(p,time) = 3; }
-
+      
       pop_hosp_loc(p,time+1) = sample(wards_out_seq,1,false,prob_ward)(0); //first ward for new patient
       
       
       pop_hosp_status(p,time+1) = pop_hosp_status(p,time); //patient has same status than time before
       pop_hosp_status_inter(p,time+1) = pop_hosp_status_inter(p,time); //patient has same status than time before
-
+      
+      
+      
       if(pop_hosp_status(p,time)==0) {s_patients(time)=s_patients(time)+1; ward_s(current_ward-1,time)=ward_s(current_ward-1,time)+1;}
       if(pop_hosp_status_inter(p,time)==0) {s_patients_inter(time)=s_patients_inter(time)+1; ward_s_inter(current_ward-1,time)=ward_s_inter(current_ward-1,time)+1;}
-
+      
       // if a patient leaves the hospital, another one is entering
       if( pop_hosp_loc(p,time+1) == state_out) {
         
@@ -1272,16 +1264,16 @@ List BloodPaTH_model(      float time_step,
         ward_screening.row(p) = init_patient_wards;
         
         count_patients = count_patients +1;
-
+        
         new_patient_vec(time) = new_patient_vec(time)+1;
         
         arma::ucolvec new_departure = {time+1,p};
         patient_departure = join_horiz(patient_departure ,new_departure) ;
-
+        
         admission_route(p) = sample(adm_seq,1,false,adm_prob)(0);
         storage_init_prob= init_prob.row(admission_route(p)-1);
         pop_hosp_loc(p,time+1) = sample(wards_seq,1,false,storage_init_prob.t())(0);//if patient leaves the hospital, another patient instantly replaces him
- 
+        
         state_counter(p) = 0; //if patient leaves the hospital, counter of infection for patient p goes back to 0
         state_counter_inter(p) = 0;
         
@@ -1322,7 +1314,7 @@ List BloodPaTH_model(      float time_step,
         if(intervention =="patient-based") {
           
           int screen_new = sample(failure_success,1,false,screen_prob_vec)(0);
-
+          
           if (screen_new==1 && pop_hosp_status_inter(p,time+1)==0) {screened(p)=1;  count_tests = count_tests +1 ;}
           
           if (screen_new==1 && pop_hosp_status_inter(p,time+1)==2) {screened(p)=2;  count_tests = count_tests +1 ;}
@@ -1331,11 +1323,12 @@ List BloodPaTH_model(      float time_step,
       }
     }
     
+    
     // check if there s a need to refill device or throw away device
     for(unsigned int rf=0;rf<nb_devices;rf++) {
       
       for(unsigned int w = 0; w<nb_wards; w++) {
-
+        
         // if(eq_quantity=="variable") {
         //   if(refill_counter(rf,w)>= round(refill_freq(rf,w)*(1/time_step))) {N_mat(rf,w)=refill_quantities(rf,w); refill_counter(rf,w) = 0;}
         //   else {refill_counter(rf,w)=refill_counter(rf,w)+1;}
@@ -1345,50 +1338,50 @@ List BloodPaTH_model(      float time_step,
         //   
         // }
         // 
-        if(refill_counter(rf,w)>= refill_freq(rf,w)){
+        if(refill_counter(rf,w)>= round(refill_freq(rf,w)*(1/time_step))){
           
           refill_counter(rf,w) = 0;
           
           // if(eq_quantity=="fixed") {
-            
-            N_mat(rf,w) =  N_mat(rf,w)+refill_quantities(rf,w);
-            C_mat(rf,w)=0;
-            Npu_mat(rf,w)=0;
-            
+          
+          N_mat(rf,w) =  N_mat(rf,w)+refill_quantities(rf,w);
+          C_mat(rf,w)=0;
+          Npu_mat(rf,w)=0;
+          
           // }
         }
         
         else {refill_counter(rf,w)=refill_counter(rf,w)+1;}
         
-        if(refill_counter_inter(rf,w)>= refill_freq(rf,w)){
+        if(refill_counter_inter(rf,w)>= round(refill_freq(rf,w)*(1/time_step))){
           
           refill_counter_inter(rf,w) = 0;
           
           // if(eq_quantity=="fixed") {
-            
-            N_mat_inter(rf,w) =  N_mat_inter(rf,w)+refill_quantities(rf,w);
-            C_mat_inter(rf,w)=0;
-            Npu_mat_inter(rf,w)=0;
-            
+          
+          N_mat_inter(rf,w) =  N_mat_inter(rf,w)+refill_quantities(rf,w);
+          C_mat_inter(rf,w)=0;
+          Npu_mat_inter(rf,w)=0;
+          
           // }
         }
         
         else {refill_counter_inter(rf,w)=refill_counter_inter(rf,w)+1;}   
-
+        
       }
     }
     
-    if(output== "all") { 
-      available_mat_time.slice(time+1) = N_mat;
-      cont_mat_time.slice(time+1) = C_mat;
-      used_mat_time.slice(time+1) = Npu_mat;
-      
-    }
+    // if(output== "all") { 
+    //   available_mat_time.slice(time+1) = N_mat;
+    //   cont_mat_time.slice(time+1) = C_mat;
+    //   used_mat_time.slice(time+1) = Npu_mat;
+    //   
+    // }
   }
   
   //removing last column because because size = time+1
-  pop_hosp_status.shed_col(round(t*(1/time_step)));
-
+  pop_hosp_status.shed_col(real_t);
+  
   if(output=="simple") {
     
     List L = List::create(_["incidence"] = incidence,
@@ -1412,5 +1405,5 @@ List BloodPaTH_model(      float time_step,
                           _["device_usage"]= eq_usage );
     
     return L;}
-
+  
 }
