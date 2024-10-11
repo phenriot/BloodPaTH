@@ -3,7 +3,7 @@
 
 ## Introduction <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> </a>
 
-The *BloodPaTh* package is a C++ coded tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data. This agent-based model reproduces : </br>
+The *BloodPaTh* package allows the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data. The main function (*BloodPaTH_model()*) is an agent-based model (coded in C++) that simulates : </br>
 * **i.** the movements of patients between wards within the hospital, </br> 
 * **ii.** the dynamics of medical devices (contamination, use and reuse of devices as well as the variation of sterile devices availability), and </br>
 * **iii.** the dynamics of pathogen transmission in patients undergoing different types of invasive procedures (following an SEI model). </br> </br>
