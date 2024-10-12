@@ -62,6 +62,7 @@ devtools::install_github("phenriot/BloodPaTH")
 * ***id_sim*** : simulation ID; this is used to facilitate replication of results and to make baseline and intervention scenarios comparable. If you are running multiple simulations, you will need to inform this parameter with the simulation number to allow replication.
 ### Model output (simple) 
 
+*... Coming soon ...*
 <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/under_construction.gif" align="right" width="150"/> </a>
 
 ### Model output (detailed)
