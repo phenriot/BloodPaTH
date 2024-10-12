@@ -24,7 +24,7 @@ devtools::install_github("phenriot/BloodPaTH")
  tools::Rcmd("INSTALL BloodPaTH_0.x.tar.gz")
  ```
 
-**NB** : You will need te following packages to proceed : *tools*, *truncnorm*, *mc2d*, *RcppArmadillo*, *Rcpp*
+**NB** : You will need te following packages to proceed : *tools*, *devtools*, *truncnorm*, *mc2d*, *RcppArmadillo*, *Rcpp*
 
 ## How does it work ? 
 
