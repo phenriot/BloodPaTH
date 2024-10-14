@@ -59,7 +59,7 @@ devtools::install_github("phenriot/BloodPaTH")
 * ***prob_screening*** : probability of patient screening upon-admission at a healthcare setting or ward level. | <ins> type = float </ins>
 * ***at_risk_wards*** : vector of the most at risk wards (i.e, wards in which we want to set an intervention); the wards needs to be informed as integers, corresponding to their rank (or ID). | <ins> type = integer vector </ins>
 * ***output*** : should the output be "simple" or "detailed" (the second option is not implemented yet). | <ins> type = string </ins>
-* ***id_sim*** : simulation ID; this is used to facilitate replication of results and to make baseline and intervention scenarios comparable. If you are running multiple simulations, you will need to inform this parameter with the simulation number to allow replication.
+* ***id_sim*** : simulation ID; this is used to facilitate replication of results and to make baseline and intervention scenarios comparable. If you are running multiple simulations, you will need to inform this parameter with the simulation number to allow replication.  | <ins> type = integer </ins>
 ### Model output (simple) 
 
 *... Coming soon ...*
