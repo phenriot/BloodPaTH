@@ -41,7 +41,7 @@ plot_incidence = function(output, n_sim, time, time_step, ylim = c(0,1)) {
     for(i in 1:(length(seq_days)-1)) {
       
       numerator = sum(output[[s]]$incidence[1,][seq_days[i]:seq_days[i+1]])
-      denominator  = output[[s]]$s_patients[seq_days[i]]+(sum(output[[s]]$new_patients[1,][seq_days[i]:seq_days[i+1]])-sum(output[[s]]$cont_new_patients[1,][seq_days[i]:seq_days[i+1]]))
+      denominator  = output[[s]]$susceptible_patients[seq_days[i]]+(sum(output[[s]]$newly_admitted_patients[1,][seq_days[i]:seq_days[i+1]])-sum(output[[s]]$newly_contaminated_patients[1,][seq_days[i]:seq_days[i+1]]))
       
       inc_rate[i] = numerator/denominator  
       
