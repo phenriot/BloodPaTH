@@ -1,3 +1,40 @@
+list_to_combined_matrices = function(input,type,nb_wards=NULL,nb_procedures=NULL) {
+  
+  # For transition matrices 
+  if(type==1) {
+    
+    if(is.null(nb_wards)) {stop("Please provide a value for the nb_wards argument")}
+    
+    storage_TM = matrix( ncol = nb_wards+1,nrow = 0);
+    
+    for(i in 1:length(input)) {
+      
+      storage_TM=rbind(storage_TM,input[[i]])  
+      
+    } 
+    
+    return(as.matrix(storage_TM))
+    
+  }
+  
+  
+  if(type==2) {
+    
+    if(is.null(nb_procedures)) {stop("Please provide a value for the nb_procedures argument")}
+    
+    storage_procedures = matrix( ncol = nb_procedures,nrow = 0);
+    
+    for(i in 1:length(input)) {
+      
+      storage_procedures =rbind(storage_procedures,input[[i]])  
+      
+    } 
+    
+    return(as.matrix(storage_procedures))
+  }
+  
+}
+
 #Function that calculates the yearly cumulative incidence (per 100,000 patients)
 #output : output of the model
 #n_sim: number of simulations
