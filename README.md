@@ -69,7 +69,7 @@ devtools::install_github("phenriot/BloodPaTH")
 
 *... Coming soon ...*
 
-### Visualise the results 
+### Visualisation of the results 
 
 *... Coming soon ...*
 
