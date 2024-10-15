@@ -45,7 +45,7 @@ devtools::install_github("phenriot/BloodPaTH")
 * ***nb_procedures*** : number of procedure types performed within the healthcare setting (must include the "no procedure event"; **example** : if there are 10 different types of procedures perfomed within the hospital then inform 10+1 = 11) | <ins> type = integer </ins>
 * ***procedure_names*** : vector of procedure names | <ins> type = string vector </ins>
 * ***nb_devices*** : number of different device types used within the healthcare setting | <ins> type = integer </ins>
-* ***device_names*** : vector of devices names | <ins> type = string vector </ins>
+* ***device_names*** : vector of device names | <ins> type = string vector </ins>
 * ***nb_devices_new*** : initial number of new sterile devices in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
 * ***nb_devices_used*** : initial number of non-sterile devices (previously used) in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
 * ***nb_devices_contaminated*** : initial number of non-sterile and contaminated devices in each ward; matrix of size ***nb_wards*** * ***nb_devices***  | <ins> type = integer matrix </ins>
