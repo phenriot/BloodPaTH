@@ -24,8 +24,9 @@ yearly_cum_inc = function(output,n_sim) {
 #n_sim: number of simulations
 #time:tmax for plotting the daily incidence
 #ylim = min.and max.of the y-axis
-plot_incidence = function(output, n_sim, time, ylim = c(0,1)) {
+plot_incidence = function(output, n_sim, time, time_step, ylim = c(0,1)) {
   
+  time=time*(1/time_step)
   oord_lim =ylim/100
   
   seq_days = seq(0,time,288)
