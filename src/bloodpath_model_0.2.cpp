@@ -1402,7 +1402,7 @@ List BloodPaTH_model(      float time_step,
                           _["newly_admitted_patients"] = new_patient_vec,
                           _["count_admissions_wards"] = count_patient_ward,
                           _["count_tests"]= count_tests,
-                          _["newly_contaminated_patients"]= cont_new_patient_vec)
+                          _["newly_contaminated_patients"]= cont_new_patient_vec);
                           //_["device_usage"]= eq_usage );
     
     return L;}
