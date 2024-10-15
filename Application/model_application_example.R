@@ -212,7 +212,7 @@ output = foreach(n = 1:n_sim ,.packages = c("Rcpp","BloodPaTH"))%dopar%{
 
 
 #Yearly cumulative incidence per 100,000 patients 
-yearly_cum_inc(output,n_sim=1)
+yearly_cum_inc(output,n_sim=n_sim)
 
 #Daily incidence over a year
-plot_incidence(output,n_sim=1,time)
+plot_incidence(output,n_sim=n_sim,time,time_step = time_step)
