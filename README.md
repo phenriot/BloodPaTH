@@ -79,7 +79,7 @@ devtools::install_github("phenriot/BloodPaTH")
 
 You will find an application of the model within the *Application* folder. 
 
-The *model_application_example.R* file allows you to understand what are the parameters of the model and to use the model to investigate the spread of HCV in a synthetic healthcare setting (*see below*).  
+The *model_application_example.R* file allows you to understand what are the parameters of the model and to use it to investigate the spread of HCV in a synthetic healthcare setting (*see below*).  
 
 To run the code you will need to download the *Data example* folder, in which you will find synthetic data :
 - **List_Transition_Matrices.rds** : An RDS file containing a list of 2 transition matrices between wards of size 29x29
