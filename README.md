@@ -26,7 +26,7 @@ devtools::install_github("phenriot/BloodPaTH")
 
 **NB** : You will need te following packages to proceed : *tools*, *devtools*, *truncnorm*, *mc2d*, *RcppArmadillo*, *Rcpp (*$\geq$ *1.0.12)* 
 
-## How does it work ? 
+## How does it work (v*0.2-alpha*) ? 
 
 ### List of model parameters
 * ***time_step*** : time-step (must be expressed in hours; **example** : if time step is 1 minute, inform 1/60) | <ins> type = float </ins>
