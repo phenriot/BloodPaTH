@@ -8,7 +8,7 @@ The *BloodPaTh* package allows the investigation of bloodborne pathogens transmi
 * **ii.** the dynamics of medical devices (contamination, use and reuse of devices as well as the variation of sterile devices availability), and </br>
 * **iii.** the dynamics of pathogen transmission in patients undergoing different types of invasive procedures (following an SEI model). </br> </br>
 
-More details about the model are available in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://www.medrxiv.org/content/10.1101/2023.11.14.23298506v1).
+More details about the model are available in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012850).
 
 ## Installation 
 
@@ -109,7 +109,7 @@ To run the code you will need to download the *Data example* folder, in which yo
 
 **NB:** You will have to change the path when loading the data within you R session.  
 
-*Analyses_PlosCompBiol_paper.R* is the R file summarising all the analyses performed to obtain the results presented in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://www.medrxiv.org/content/10.1101/2023.11.14.23298506v1). Unfortunately, it cannot be used in its current form because the data used in this project is considered sensitive and cannot be shared publicly. 
+*Analyses_PlosCompBiol_paper.R* is the R file summarising all the analyses performed to obtain the results presented in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012850). Unfortunately, it cannot be used in its current form because the data used in this project is considered sensitive and cannot be shared publicly. 
 
 ## Contact
 
