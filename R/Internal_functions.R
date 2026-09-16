@@ -128,9 +128,12 @@ plot_incidence = function(output, n_sim, time, time_step, ylim = c(0,1)) {
 #output : output of the model
 #n_sim: number of simulations
 #n_wards: number of wards
-#rm_0 : logical, should the wards with an incidence of 0 be removed 
+#rm_0 : logical, should the wards with an incidence of 0 be removed
 #type : "mean" or "median", should the central plotted value of each ward be the mean or the median
-plot_inc_wards = function(output,n_sim,n_wards,rm_0=T,type="mean") {
+#ward_names : optional character vector of length n_wards giving ward labels (defaults to ward ranks)
+plot_inc_wards = function(output,n_sim,n_wards,rm_0=T,type="mean",ward_names=NULL) {
+
+  if(is.null(ward_names)) {ward_names = as.character(1:n_wards)}
   
   mat_inc=matrix(ncol = n_sim,nrow = n_wards)
   
@@ -174,18 +177,22 @@ plot_inc_wards = function(output,n_sim,n_wards,rm_0=T,type="mean") {
     df_inc[w,6] = quantile(mat_cases[w,],prob=0.975)
   }
   
-  df_inc = data.frame(ward=departments,df_inc)
-  df_inc = data.frame(ward=as.character(1:28),df_inc)
+  df_inc = data.frame(ward=as.character(1:n_wards),df_inc)
   colnames(df_inc) = c("ward_nb","ward","mean","pred_inf","pred_sup","mean_cases","pred_inf_cases","pred_sup_cases")
-  
+
+  if(rm_0) {
+    keep = df_inc$mean != 0
+    df_inc = df_inc[keep,]
+    mat_inc = mat_inc[keep,,drop=FALSE]
+    mat_cases = mat_cases[keep,,drop=FALSE]
+    ward_names = ward_names[keep]
+  }
+
   df_test = melt(mat_inc) ;
-  df_test = data.frame(df_test,mean_cases = rep(df_inc$mean_cases,n_sim),as.character(rep(df_hosp_ward$department,n_sim)),
-                       ward_name=rep(departments,n_sim))
-  colnames(df_test) = c("ward","sim","y_inc","mean_cases","dpt","ward_name")
-  
-  print(df_test)
-  print(df_inc)
-  
+  df_test = data.frame(df_test,mean_cases = rep(df_inc$mean_cases,n_sim),
+                       ward_name=rep(ward_names,n_sim))
+  colnames(df_test) = c("ward","sim","y_inc","mean_cases","ward_name")
+
   plot=ggplot(data =df_test,aes(y=reorder(ward_name, y_inc, FUN=mean),x=y_inc,group=ward_name))+
     geom_jitter(shape=23,fill="grey",alpha=0.3)+
     geom_errorbar(data=df_inc,aes(xmin=pred_inf,xmax=pred_sup,color=mean,y=reorder(ward,mean),x=mean),width=.3,size=0.75,color="black",inherit.aes=FALSE)+
@@ -214,8 +221,11 @@ plot_inc_wards = function(output,n_sim,n_wards,rm_0=T,type="mean") {
 #output : output of the model
 #n_sim: number of simulations
 #n_eq: number of devices
-#plot_log: logical, should the calculated portion be transformed into log 
-plot_att_eq = function(output,n_sim,n_eq,plot_log=F) {
+#plot_log: logical, should the calculated portion be transformed into log
+#device_names : optional character vector of length n_eq giving device labels (defaults to device ranks)
+plot_att_eq = function(output,n_sim,n_eq,plot_log=F,device_names=NULL) {
+
+  if(is.null(device_names)) {device_names = as.character(1:n_eq)}
   
   mat_eq_inf=matrix(ncol = n_sim,nrow = n_eq)
   
@@ -237,9 +247,7 @@ plot_att_eq = function(output,n_sim,n_eq,plot_log=F) {
   mat_eq_inf[which(is.nan(mat_eq_inf))]=0
   
   if(is.null(index_no_inf)==F) {mat_eq_inf = mat_eq_inf[,-index_no_inf]}
-  
-  print(mat_eq_inf)
-  
+
   df_inf_cont = matrix(ncol = 6, nrow = n_eq)
   
   for (w in 1:n_eq) {
@@ -257,7 +265,7 @@ plot_att_eq = function(output,n_sim,n_eq,plot_log=F) {
     df_inf_cont[is.infinite(df_inf_cont)] = log(0.0001)
   }
   
-  df_inf_cont = data.frame(eq=supplies,df_inf_cont)
+  df_inf_cont = data.frame(eq=device_names,df_inf_cont)
   colnames(df_inf_cont) = c("eq","mean","pred_inf","pred_sup","mean_inf","pred_inf_inf","pred_sup_inf")
   
   if(plot_log==F) {

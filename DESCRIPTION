@@ -1,11 +1,15 @@
 Package: BloodPaTH
 Type: Package
 Title: BloodPaTH : Bloodborne Pathogens Transmission in Hospitals
-Version: 0.2
-Date: 2024-10-10
-Author: Paul Henriot
-Maintainer: Paul Henriot <paul.henriot@protonmail.com>
-Description: The BloodPaTh package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data
+Version: 1.0
+Date: 2026-09-16
+Authors@R: person("Paul", "Henriot", email = "paul.henriot@protonmail.com", role = c("aut", "cre"))
+Description: The BloodPaTH package is a tool allowing the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal prospective data.
 License: GPL (>= 2)
-Imports: Rcpp (>= 1.0.12),truncnorm,mc2d,stats
+Encoding: UTF-8
+URL: https://github.com/phenriot/BloodPaTH
+BugReports: https://github.com/phenriot/BloodPaTH/issues
+Imports: Rcpp (>= 1.0.12),truncnorm,mc2d,stats,ggplot2,reshape2,ggnewscale
 LinkingTo: Rcpp, RcppArmadillo
+Suggests: testthat (>= 3.0.0)
+Config/testthat/edition: 3

@@ -32,6 +32,10 @@ library(lvplot)
 ### Setting up the cluster ###
 ##############################
 
+# Path to the "Data example" folder shipped alongside this script.
+# Adjust this if you run the script from a different working directory.
+data_dir = file.path("Data example")
+
 n_cores = detectCores()- 4 # Number of cores allocated to the local cluster
 
 clust <- makeCluster(n_cores)
@@ -126,7 +130,7 @@ sterilization_prob = runif(nb_devices,min=0,max = 1) # Random sterilization prob
 
 # Load list of transition matrices (list is of length 2 as there is 2 admission routes)
 # These matrices are of size (nb_wards + 1)*(nb_wards + 1), the last row and column are the probabilities associated with the event of getting discharged after leaving a particular ward
-list_TM = readRDS("C:/Users/paulh/Desktop/Data example/List_Transition_Matrices.rds")
+list_TM = readRDS(file.path(data_dir, "List_Transition_Matrices.rds"))
 combined_TM = list_to_combined_matrices(list_TM,nb_wards=nb_wards,type=1)
 
 indices_A1 = which(rowSums(list_TM[[1]])[-(nb_wards+1)]==1) # Wards in which patients go within department A1
@@ -141,11 +145,11 @@ freq_adm_A2[indices_A2] = rand_vect(length(indices_A2)) # Random probabilities o
 
 # Load list of probability matrices : each element gives the probability of undergoing a particular procedure within a given ward (list is of length 2 as there is 2 admission routes)
 # These matrices are of size (nb_wards)*(nb_proc)
-list_PPM = readRDS("C:/Users/paulh/Desktop/Data example/List_Proc_Prob_Matrices.rds")
+list_PPM = readRDS(file.path(data_dir, "List_Proc_Prob_Matrices.rds"))
 combined_PPM = list_to_combined_matrices(list_PPM,nb_procedures=nb_proc,type=2)
 
 #Matrix of association between devices and procedures
-association_matrix = read.csv2("C:/Users/paulh/Desktop/Data example/association_devices_procedures.csv")
+association_matrix = read.csv2(file.path(data_dir, "association_devices_procedures.csv"))
 association_matrix = as.matrix(association_matrix)
 
 nb_devices_new = matrix(data = round(runif(nb_wards*nb_devices,min = 0,max=100000)),nrow =nb_devices,ncol = nb_wards) # Random matrix for the number of sterile devices in each ward at initialization
@@ -164,7 +168,7 @@ prevalence_type = "ward" # Should we consider the prevalence at a setting level 
 # The first 3 columns correspond to the values of the parameters associated with the distribution of the risk for each of the procedures (rows)
 # The last column is the name of the distribution, for now only "lnorm", "norm" and "pert" are working
 # The values of the parameters of last row always need to be set to 0 as this corresponds to the "no_procedure" event
-dist_risk = read.csv2("C:/Users/paulh/Desktop/Data example/risk_dist.csv")[,3:6]
+dist_risk = read.csv2(file.path(data_dir, "risk_dist.csv"))[,3:6]
 dist_risk = rbind(dist_risk,c(0,0,NA,"lnorm")) #Adding a "fake" row for the "no procedure" event 
 dist_risk$par_1 = as.numeric(dist_risk$par_1)
 dist_risk$par_2 = as.numeric(dist_risk$par_2)

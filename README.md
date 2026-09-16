@@ -1,9 +1,12 @@
 
 # *BloodPaTH* : Bloodborne Pathogens Transmission in Hospitals 
 
+[![R-CMD-check](https://github.com/phenriot/BloodPaTH/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/phenriot/BloodPaTH/actions/workflows/R-CMD-check.yaml)
+[![License: GPL v2+](https://img.shields.io/badge/license-GPL%20(%3E%3D2)-blue.svg)](LICENSE.md)
+
 ## Introduction <a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/BloodPaTH_logo.png" align="right" width="150"/> </a>
 
-The *BloodPaTh* package allows the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal retrospective data. The main function `BloodPaTH_model()` is an agent-based model (coded in C++) that simulates : </br>
+The *BloodPaTH* package allows the investigation of bloodborne pathogens transmission within healthcare settings using longitudinal retrospective data. The main function `BloodPaTH_model()` is an agent-based model (coded in C++) that simulates : </br>
 * **i.** the movements of patients between wards within the hospital, </br> 
 * **ii.** the dynamics of medical devices (contamination, use and reuse of devices as well as the variation of sterile devices availability), and </br>
 * **iii.** the dynamics of pathogen transmission in patients undergoing different types of invasive procedures (following an SEI model). </br> </br>
@@ -24,9 +27,9 @@ devtools::install_github("phenriot/BloodPaTH")
  tools::Rcmd("INSTALL BloodPaTH_0.x.tar.gz")
  ```
 
-**NB** : You will need te following packages to proceed : *tools*, *devtools*, *truncnorm*, *mc2d*, *RcppArmadillo*, *Rcpp (*$\geq$ *1.0.12)* 
+**NB** : You will need the following packages to proceed : *tools*, *devtools*, *truncnorm*, *mc2d*, *ggplot2*, *reshape2*, *ggnewscale*, *RcppArmadillo*, *Rcpp (*$\geq$ *1.0.12)* 
 
-## How does it work (v*0.2-alpha*) ? 
+## How does it work (v*1.0*) ? 
 
 ### List of model parameters
 * ***time_step*** : time-step (must be expressed in hours; **example** : if time step is 1 minute, inform 1/60) | <ins> type = float </ins>
@@ -66,25 +69,23 @@ devtools::install_github("phenriot/BloodPaTH")
 * **incidence_intervention** : gives the incidence at each time-step at a setting level if an intervention is implemented (**incidence** = **incidence_intervention** if **intervention** = "none"). | <ins> type = integer vector </ins>
 * **susceptible_patients** : gives the number of susceptible patients at each time step a setting level. | <ins> type = integer vector </ins>
 * **susceptible_patients_intervention** : gives the number of susceptible patients at each time step a setting level if an intervention is implemented (**susceptible_patients** = **susceptible_patients_intervention** if **intervention** = "none"). | <ins> type = integer vector </ins>
-* **wards_events** = ...
-* **wards_events_intervention** = ...
-* **wards_susceptible** = ...
-* **wards_susceptible_intervention** = ...
-* **contaminated_devices** = ...
-* **contaminated_devices_intervention** = ...
-* **used_devices** = ...
-* **used_devices_intervention** = ...
-* **infection_events_devices**=...
-* **infection_events_devices_intervention**=...
-* **count_patients_hospital**=...
-* **newly_admitted_patients**=...
-* **count_admissions_wards**=...
-* **count_tests**=...
-* **newly_contaminated_patients**=...
-* **newly_contaminated_patients_intervention**=...
+* **wards_events** : total number of contamination events in each ward, across the whole period. | <ins> type = integer vector </ins>
+* **wards_events_intervention** : same as **wards_events**, for the intervention scenario. | <ins> type = integer vector </ins>
+* **wards_susceptibles** : number of susceptible patients in each ward at each time-step. | <ins> type = integer matrix </ins>
+* **wards_susceptibles_intervention** : same as **wards_susceptibles**, for the intervention scenario. | <ins> type = integer matrix </ins>
+* **contaminated_devices** : total number of contaminated devices of each type at the end of the period. | <ins> type = integer vector </ins>
+* **contaminated_devices_intervention** : same as **contaminated_devices**, for the intervention scenario. | <ins> type = integer vector </ins>
+* **used_devices** : total number of non-sterile devices of each type at the end of the period. | <ins> type = integer vector </ins>
+* **used_devices_intervention** : same as **used_devices**, for the intervention scenario. | <ins> type = integer vector </ins>
+* **infection_events_devices** : total number of contamination events attributable to each device type. | <ins> type = integer vector </ins>
+* **infection_events_devices_intervention** : same as **infection_events_devices**, for the intervention scenario. | <ins> type = integer vector </ins>
+* **count_patients_hospital** : total number of patients that entered the setting across the period. | <ins> type = integer </ins>
+* **newly_admitted_patients** : number of newly admitted patients at each time-step. | <ins> type = integer vector </ins>
+* **count_admissions_wards** : number of accesses (not unique) to each ward across the period. | <ins> type = integer vector </ins>
+* **count_tests** : total number of tests performed across the period. | <ins> type = integer </ins>
+* **newly_contaminated_patients** : number of newly contaminated patients at each time-step. | <ins> type = integer vector </ins>
+* **newly_contaminated_patients_intervention** : same as **newly_contaminated_patients**, for the intervention scenario. | <ins> type = integer vector </ins>
    
-<a href="README.md"> <img src="https://github.com/phenriot/BloodPaTH/blob/main/Other/under_construction.gif" align="right" width="150"/> </a>
-
 ### Model output (detailed)
 
 *... Coming soon ...*
@@ -93,7 +94,7 @@ devtools::install_github("phenriot/BloodPaTH")
 
 *... Coming soon ...*
 
-**NB**: This package is an alpha version and is still under development. A Shiny app is currently being developped. 
+**NB**: `output = "detailed"`, built-in result visualisation, and a companion Shiny app are still on the roadmap and not yet available.
 
 ## Application
 
@@ -107,9 +108,15 @@ To run the code you will need to download the *Data example* folder, in which yo
 - **association_devices_procedures.csv** : A CSV file summarising the association between devices (column 'ID_devices') and procedures (column 'ID_procedures')
 - **risk_dist.csv** : A CSV file detailing the parameters of the distribution of the risk of getting infected for each type of procedure 
 
-**NB:** You will have to change the path when loading the data within you R session.  
+**NB:** *model_application_example.R* expects the *Data example* folder to sit next to the script (e.g. run the script from within the *Application* folder, or edit the `data_dir` variable at the top of the script).
 
 *Analyses_PlosCompBiol_paper.R* is the R file summarising all the analyses performed to obtain the results presented in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012850). Unfortunately, it cannot be used in its current form because the data used in this project is considered sensitive and cannot be shared publicly. 
+
+## Performance
+
+The C++ core used to reseed R's RNG (`set.seed()`) and call back into R for almost every stochastic draw, which dominated the model's runtime. It now uses a native, allocation-free RNG (see the top of *src/bloodpath_model_0.2.cpp*) that preserves the same "one seed → one deterministic draw" reproducibility scheme, without leaving C++.
+
+**Before trusting results produced after this change**, run *Validation/validate_rng.R*, which compiles a standalone copy of the new RNG functions and statistically compares their output (Kolmogorov-Smirnov test, means/sds) against R's own `rbinom`/`runif`/`rnorm`/`rlnorm`/`mc2d::rpert`. This was not possible to verify while making the change (no R installation was available), so treat it as required rather than optional, especially for the PERT branch.
 
 ## Contact
 
