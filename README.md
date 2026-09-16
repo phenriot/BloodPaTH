@@ -112,12 +112,6 @@ To run the code you will need to download the *Data example* folder, in which yo
 
 *Analyses_PlosCompBiol_paper.R* is the R file summarising all the analyses performed to obtain the results presented in [*An agent-based model to simulate the transmission dynamics of bloodborne pathogens within hospitals*](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1012850). Unfortunately, it cannot be used in its current form because the data used in this project is considered sensitive and cannot be shared publicly. 
 
-## Performance
-
-The C++ core used to reseed R's RNG (`set.seed()`) and call back into R for almost every stochastic draw, which dominated the model's runtime. It now uses a native, allocation-free RNG (see the top of *src/bloodpath_model_0.2.cpp*) that preserves the same "one seed → one deterministic draw" reproducibility scheme, without leaving C++.
-
-**Before trusting results produced after this change**, run *Validation/validate_rng.R*, which compiles a standalone copy of the new RNG functions and statistically compares their output (Kolmogorov-Smirnov test, means/sds) against R's own `rbinom`/`runif`/`rnorm`/`rlnorm`/`mc2d::rpert`. This was not possible to verify while making the change (no R installation was available), so treat it as required rather than optional, especially for the PERT branch.
-
 ## Contact
 
 If you have any questions, please reach the author <a href="mailto:paul.henriot@protonmail.com">Paul Henriot</a>
